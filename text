@@ -1,0 +1,53 @@
+public function beforeAction($action)
+{
+    if (parent::beforeAction($action)) {
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->status == '5' && $this->getRoute() != 'site/confirm-email' && $this->getRoute()
+                != 'site/resend-email') {
+                $this->redirect(['site/confirm-email']);
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function beforeAction($action)
+{
+    if (parent::beforeAction($action)) {
+        if ($this->action->id == 'view' ) {
+            Url::remember();
+            $request = Yii::$app->request;
+            $access_token = $request->get('access-token');
+             $rows = (new Query())
+                    ->select('*')
+                    ->from('tokens')
+                    ->all();
+             //$count=count();
+             echo json_encode($rows);
+             foreach ($rows as $row) {
+              echo json_encode($row->attributes);
+               # code...
+             }
+               
+          /*    for ($a=0 ;$a<$count;$a++) {
+                      if($rows[$a]->token===$access_token){
+              echo json_encode($rows[$a]->token);
+                      return true; // or false if needed
+          } 
+         if ($this->action->id == 'login' ||$this->action->id == 'index'||$this->action->id == 'create' ) {
+
+                  return true;}
+            else {
+        echo json_encode('Not authorized');
+            return false;
+   }
+  }*/
+        }
+return true;
+        
+}
+else 
+return false;
+}
