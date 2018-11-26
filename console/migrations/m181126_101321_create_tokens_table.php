@@ -8,7 +8,7 @@ use yii\db\Migration;
  *
  * - `users`
  */
-class m181023_081104_create_tokens_table extends Migration
+class m181126_101321_create_tokens_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class m181023_081104_create_tokens_table extends Migration
         $this->createTable('tokens', [
             'id' => $this->primaryKey(),
             'token' => $this->string(250)->notNull()->unique(),
-            'expiry' => $this->dateTime()notNull(),
+            'expiry' => $this->dateTime(),
             'user_id' => $this->integer()->notNull(),
             'created_on' => $this->dateTime(),
             'modified_on' => $this->dateTime(),
